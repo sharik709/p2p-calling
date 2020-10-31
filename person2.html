@@ -35,15 +35,36 @@
 <body>
     <h1>Person 2</h1>
     <div class="container">
-        <video class="remote" src=""></video>
+        <video class="remote" id="remote" src="" autoplay></video>
         <div class="local-video-wrapper">
-            <video class="local" src=""></video>
+            <video id="local" class="local" src="" autoplay></video>
         </div>
     </div>
 
 
     <script>
-        var peer = new Peer(); 
+        let id = "person-2"
+        let options = {
+            key : 'peerjs',
+            host: '13.233.197.233',
+            port: 9000,
+            path: '/peers',
+            debug: 3
+        }
+
+        var peer = new Peer(id, options); 
+
+        peer.on('call', function(call){
+            window.navigator.getUserMedia({video: true, audio: false}, function(stream){
+                let video1 = document.querySelector('#local');
+                video1.srcObject = stream;
+                call.answer(stream)
+                call.on('stream', remoteStream => {
+                    let video2 = document.querySelector('#remote');
+                    video2.srcObject = remoteStream
+                })
+            }, err => console.log(err))
+        });
     </script>
 </body>
 

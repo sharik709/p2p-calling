@@ -30,15 +30,43 @@
 <body>
     <h1>Person 1</h1>
     <div class="container">
-        <video class="remote" src=""></video>
+        <video class="remote" id="remote" src="" autoplay></video>
         <div class="local-video-wrapper">
-            <video class="local" src=""></video>
+            <video class="local" id="local" src="" autoplay></video>
         </div>
+        <button type="button" id="call" onclick="initCall()">
+            Call Person 2
+        </button>
     </div>
 
 
-
     <script>
+        let id = "person-1"
+        let options = {
+            key: 'peerjs',
+            host: '13.233.197.233',
+            port: 9000,
+            path: '/peers',
+            debug: 3
+        }
+
+        var peer = new Peer(id, options); 
+
+
+        function initCall() {
+            window.navigator.getUserMedia({video: true, audio: false}, function(stream){
+                let video = document.querySelector('#local');
+                video.srcObject = stream
+
+
+                let call = peer.call('person-2', stream)
+                call.on('stream', remoteStream => {
+                    let video2 = document.querySelector('#remote')
+                    video2.srcObject = remoteStream;
+                });
+
+            }, err => console.log(err));
+        }
     </script>
 </body>
 </html>
