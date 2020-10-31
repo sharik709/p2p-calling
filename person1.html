@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person 1</title>
+
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <style>
+        .container {
+            width: 560px;
+            margin: 0 auto;
+        }
+        .remote {
+            width: 100%;
+            height: 450px;
+            background-color: #191919;
+        }
+        .local {
+            width: 250px;
+            height: 250px;
+            background-color: #191919;
+        }
+        .local-video-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Person 1</h1>
+    <div class="container">
+        <video class="remote" src=""></video>
+        <div class="local-video-wrapper">
+            <video class="local" src=""></video>
+        </div>
+    </div>
+
+
+
+    <script>
+    </script>
+</body>
+</html>
